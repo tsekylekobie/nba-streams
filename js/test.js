@@ -56,8 +56,57 @@ function removeStreamer(name) {
     }
 }
 
-function generateTable(title) {
-    console.log(title);
+function displayGames() {
+    if (!gotComments) {
+        window.setTimeout(displayGames, 100);
+    } else {
+        for (var i = 0; i < filtered_comments.length; i++) {
+            var title = filtered_comments[i].title
+            var game = $('<option></option>')
+                        .attr("value", title)
+                        .text(title);
+            $('#select-game').append(game);
+        }
+    }
+}
+
+function generateTable() {
+    console.log(this.value);
+    console.log(this.value == "none");
+    console.log(this.value == 'none');
+    if (this.value == "none") {
+        $("#main").empty().text("No streams found");
+    } else {
+        $("#main").empty();
+        var game = findGame(this.value);
+        var table = $('<table></table>');
+        for (streamer in game.links) {
+            var row = $('<tr></tr>').append($('<th></th>').text(streamer));
+            for (var j = 0; j < game.links[streamer].length; j++) {
+                link = $('<td></td>').append(
+                        $('<a></a>')
+                            .attr({
+                                class: "link",
+                                target: "_blank",
+                                href: game.links[streamer][j]
+                            })
+                            .text("Link " + (j+1)));
+                row.append(link);
+            }
+            table.append(row);
+        }
+        $("#main").append(table);
+
+    }
+}
+
+function findGame(title) {
+    for (var i = 0; i < filtered_comments.length; i++) {
+        if (filtered_comments[i].title == title) {
+            return filtered_comments[i];
+        }
+    }
+    return "No game found";
 }
 
 // ------BELOW ARE FUNCTIONS TO GET THE STREAM LINKS------
@@ -134,8 +183,7 @@ reddit.hot('nbastreams').fetch(getGameThreads);
 getStreams()
 getURLs();
 console.log(filtered_comments);
-// 
-
 
 // Add events to buttons
-$('#select-game').click(generateTable);
+displayGames();
+$('#select-game').change(generateTable);

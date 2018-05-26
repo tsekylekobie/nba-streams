@@ -23,11 +23,12 @@ select {
 	width: 35%;
 }
 
-a {
+a.link {
+	text-decoration: none;
 	color: #62A9FF;
 }
 
-a:hover {
+a.link:hover {
 	text-decoration: underline;
 	cursor: pointer;
 }
