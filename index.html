@@ -1,0 +1,44 @@
+<html>
+<head>
+	<link rel="stylesheet" href="main.css">
+</head>
+<body>
+ 	<div id="top-bar">
+ 		<select class="item" id="select-game">
+ 			<option value="none">Select a game</option>
+ 		</select>
+ 		<button class="item" id="game-thread" disabled>Game Thread</button>
+ 		<button class="item" id="streamers">Edit Streamers</button>
+ 	</div>
+ 	<div id="main">
+	 	<table>
+	 		<tr>
+	 			<th>buffstreams</th>
+	 			<td><a target="_blank">Link 1</a></td>
+	 			<td><a target="_blank">Link 2</a></td>
+	 		</tr>
+	 		<tr>
+	 			<th>velocityraps</th>
+	 			<td><a target="_blank">Link 1</a></td>
+	 			<td><a target="_blank">Link 2</a></td>
+	 		</tr>	
+	 		<tr>
+	 			<th>rippledotis</th>
+	 			<td colspan="3">N/A</td>
+	 		</tr>		
+	 	</table>
+ 	</div>
+ 	<div id="streamers-modal">
+ 		<div class="ex">X</div>
+ 		<div class="title">Whitelist</div>
+ 		<div class="name">buffstreams</div>
+ 		<div class="name">velocityraps</div>
+ 		<input type="text" name="new_name">
+ 	</div>
+
+ 	<script src="js/jquery-3.3.1.min.js"></script>
+ 	<script src="js/reddit.min.js"></script>
+ 	<script src="js/test.js"></script>
+ 	<script src="js/modal.js"></script>
+</body>
+</html>

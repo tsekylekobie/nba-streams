@@ -1,0 +1,65 @@
+body {
+	min-height: 100px;
+	min-width: 300px;
+	font-family: "Roboto";
+	background-color: #F9F9F9;
+	font-size: 18px;
+}
+
+button, select {
+	font-family: "Roboto";
+}
+
+#top-bar {
+	width: 95%;
+	margin-bottom: 5px;
+}
+
+.item {
+
+}
+
+select {
+	width: 35%;
+}
+
+a {
+	color: #62A9FF;
+}
+
+a:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.ex:hover, button {
+	cursor: pointer;
+}
+
+table {
+	text-align: left;
+}
+
+th {
+	text-align: right;
+}
+
+#streamers-modal {
+	display: none;
+	text-align: center;
+	width: 90%;
+}
+
+.title {
+	color: #62A9FF;
+	font-size: 24px;
+
+}
+
+.name {
+	font-size: 16px;
+}
+
+.ex {
+	float: right;
+}
