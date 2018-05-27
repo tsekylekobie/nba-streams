@@ -15,12 +15,12 @@ button, select {
 	margin-bottom: 5px;
 }
 
-.item {
-
+select {
+	width: 40%;
 }
 
-select {
-	width: 35%;
+#game-thread {
+	float: right;
 }
 
 a.link {

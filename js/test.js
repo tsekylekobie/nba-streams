@@ -71,33 +71,42 @@ function displayGames() {
 }
 
 function generateTable() {
-    console.log(this.value);
-    console.log(this.value == "none");
-    console.log(this.value == 'none');
     if (this.value == "none") {
-        $("#main").empty().text("No streams found");
+        $('#main').empty().text("No streams found");
+        $('#game-thread').prop("disabled", true);
     } else {
-        $("#main").empty();
-        var game = findGame(this.value);
-        var table = $('<table></table>');
-        for (streamer in game.links) {
-            var row = $('<tr></tr>').append($('<th></th>').text(streamer));
-            for (var j = 0; j < game.links[streamer].length; j++) {
-                link = $('<td></td>').append(
-                        $('<a></a>')
-                            .attr({
-                                class: "link",
-                                target: "_blank",
-                                href: game.links[streamer][j]
-                            })
-                            .text("Link " + (j+1)));
-                row.append(link);
-            }
-            table.append(row);
-        }
-        $("#main").append(table);
-
+        $('#main').empty();
+        game = findGame(this.value);
+        $("#main").append(tableMaker(game));
+        $('#game-thread').prop("disabled", false);
+        $('#game-thread').click(() => {
+            window.open("http://www.reddit.com" + game["permalink"]);
+        });
     }
+}
+
+function tableMaker(game) {
+    var table = $('<table></table>');
+    for (streamer in game.links) {
+        table.append(rowMaker(streamer));
+    }
+    return table;
+}
+
+function rowMaker(streamer) {
+    var row = $('<tr></tr>').append($('<th></th>').text(streamer));
+    for (var j = 0; j < game.links[streamer].length; j++) {
+        link = $('<td></td>').append(
+                $('<a></a>')
+                    .attr({
+                        class: "link",
+                        target: "_blank",
+                        href: game.links[streamer][j]
+                    })
+                    .text("Link " + (j+1)));
+        row.append(link);
+    }
+    return row;
 }
 
 function findGame(title) {
