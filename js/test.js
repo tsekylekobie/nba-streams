@@ -3,7 +3,7 @@ game_threads = [];
 filtered_comments = [];
 gotGameThreads = false;
 gotComments = false;
-streamers = ["buffstreams", "velocityraps", "rippledotis"];
+const streamers = ["buffstreams", "velocityraps", "rippledotis"];
 const team_abbr = {
     "Hawks": "ATL",
     "Nets": "BKN",
@@ -71,12 +71,12 @@ function displayGames() {
 }
 
 function generateTable() {
-    if (this.value == "none") {
-        $('#main').empty().text("No streams found");
+    $('#main').empty();
+    game = findGame(this.value);
+    if (game == null || Object.keys(game.links).length == 0) {
+        $('#main').text("No streams found");
         $('#game-thread').prop("disabled", true);
     } else {
-        $('#main').empty();
-        game = findGame(this.value);
         $("#main").append(tableMaker(game));
         $('#game-thread').prop("disabled", false);
         $('#game-thread').click(() => {
@@ -115,7 +115,7 @@ function findGame(title) {
             return filtered_comments[i];
         }
     }
-    return "No game found";
+    return null;
 }
 
 // ------BELOW ARE FUNCTIONS TO GET THE STREAM LINKS------
@@ -140,7 +140,7 @@ function parseTitle(title) {
             teams.push(team_abbr[team]);
         }
     }
-    return teams[0] + " vs " + teams[1];
+    if (teams.length == 2) return teams[0] + " vs " + teams[1];
 }
 
 function getStreams() {
@@ -149,12 +149,15 @@ function getStreams() {
     } else {
         console.log("Number of games today: " + game_threads.length);
         for (var i = 0; i < game_threads.length; i++) {
-            filtered_comments.push({"title": parseTitle(game_threads[i].data.title),
-                                    "permalink": game_threads[i].data.permalink,
-                                    "comments": [],
-                                    "links": {}
-                                });
-            filterComments(i);
+            var title = parseTitle(game_threads[i].data.title);
+            if (title != null) {
+                filtered_comments.push({"title": title,
+                                        "permalink": game_threads[i].data.permalink,
+                                        "comments": [],
+                                        "links": {}
+                                    });
+                filterComments(i);
+            }
         }
     }
 }
