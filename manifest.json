@@ -6,12 +6,12 @@
     	"activeTab"
     ],
     "background": {
-    	"scripts": ["js/test.js", "js/reddit.min.js", "js/jquery-3.3.1.min.js"],
+    	"scripts": ["js/main.js", "js/reddit.min.js", "js/jquery-3.3.1.min.js"],
     	"persistent": false
     },
 	"browser_action": {
       "default_popup": "index.html",
-      "default_icon": "hello_extensions.png"
+      "default_icon": "basketball.png"
     },
     "manifest_version": 2
 }

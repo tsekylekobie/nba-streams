@@ -38,28 +38,25 @@ const team_abbr = {
 }
 
 function addStreamer(name) {
-    if (streamers.includes(name)) {
+    if (streamers.includes(name))
         return false;
-    } else {
-        streamers.push(name);
-        return true;
-    }
+    streamers.push(name);
+    return true;
 }
 
 function removeStreamer(name) {
     index = streamers.indexOf(name);
     if (index > -1) {
         streamers.splice(index, 1);
-        return true;;
-    } else {
-        return false;
+        return true;
     }
+    return false;
 }
 
 function displayGames() {
-    if (!gotComments) {
+    if (!gotComments)
         window.setTimeout(displayGames, 100);
-    } else {
+    else {
         for (var i = 0; i < filtered_comments.length; i++) {
             var title = filtered_comments[i].title
             var game = $('<option></option>')
@@ -87,9 +84,8 @@ function generateTable() {
 
 function tableMaker(game) {
     var table = $('<table></table>');
-    for (streamer in game.links) {
+    for (streamer in game.links)
         table.append(rowMaker(streamer));
-    }
     return table;
 }
 
@@ -111,9 +107,8 @@ function rowMaker(streamer) {
 
 function findGame(title) {
     for (var i = 0; i < filtered_comments.length; i++) {
-        if (filtered_comments[i].title == title) {
+        if (filtered_comments[i].title == title)
             return filtered_comments[i];
-        }
     }
     return null;
 }
@@ -125,9 +120,8 @@ function getGameThreads(res) {
     
     for (var i = 0; i < rdc.length; i++) {
         if (rdc[i].data.link_flair_css_class == "gamethread" &&
-            rdc[i].data.link_flair_text != "Channel Thread") {
+            rdc[i].data.link_flair_text != "Channel Thread")
             game_threads.push(rdc[i]);
-        }
     }
     gotGameThreads = true;
 }
@@ -136,9 +130,8 @@ function parseTitle(title) {
     // Find two teams playing, returns String "TEAM1 @ TEAM2"
     teams = [];
     for (team in team_abbr) {
-        if (title.includes(team)) {
+        if (title.includes(team))
             teams.push(team_abbr[team]);
-        }
     }
     if (teams.length == 2) return teams[0] + " vs " + teams[1];
 }
@@ -167,9 +160,8 @@ function filterComments(index) {
         comments = res[1].data.children;
         console.log("Number of comments in thread:" + comments.length);
         for (var j = 0; j < comments.length; j++) {
-            if (streamers.includes(comments[j].data.author)) {
+            if (streamers.includes(comments[j].data.author))
                 filtered_comments[index]["comments"].push(comments[j]);
-            }
         }
         gotComments = true;
     });
