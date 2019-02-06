@@ -2,7 +2,6 @@
 var game_threads = [];
 var filtered_comments = [];
 var counter = 0;
-var bots = ["NBAstreamsBot", "nbanicks"];
 
 function displayGames() {
     for (var i = 0; i < filtered_comments.length; i++) {
@@ -27,7 +26,7 @@ function getGameThreads(res) {
 }
 
 function getStreams() {
-    console.log("Number of games today: " + game_threads.length);
+    // console.log("Number of games today: " + game_threads.length);
     for (var i = 0; i < game_threads.length; i++) {
         var game = new Game(game_threads[i].data.title, game_threads[i].data.permalink);
         filtered_comments.push(game);
@@ -40,12 +39,6 @@ function filterComments(index) {
     reddit.comments(game_threads[index].data.id, "nbastreams").sort("hot").fetch(function(res) {
         comments = res[1].data.children;
         // console.log("Number of comments in thread:" + comments.length);
-        // for (var j = 0; j < comments.length; j++) {
-        //     if ($.inArray(comments[j].data.author, bots) != -1) {
-        //         filtered_comments[index].comments.push(comments[j]);
-        //         break;
-        //     }
-        // }
         filtered_comments[index].comments = res[1].data.children;
         getURL(filtered_comments[index]);
         counter++;
@@ -61,14 +54,19 @@ function getURL(obj) {
     var cmts = obj.comments;
     var links = []
     for (var j = 0; j < cmts.length; j++) {
-        if ($.inArray(cmts[j].data.author, bots) != -1) {
+        if (cmts[j].data.stickied) {
             var streams = cmts[j].data.body.match(/(?<=\/u\/).*/g);
-            console.log(streams);
             for (var k = 0; k < streams.length; k++) {
-                var name = streams[k].match(/([^\| ]+)/g)[0]; // Gets the first word
-                var thread_id = streams[k].match(/(?<=\/comments\/).+?(?=\/)/g)[0];
-                var comment_id = streams[k].match(/[^\/]+?(?=\/\))/g)[0];
-                obj.links[name] = getLinksFromComment(cmts, comment_id);
+                var name = streams[k].match(/([^\| ]+)/g)[0];
+                // Check if format is /u/username
+                if (/(?<=\/u\/).*/g.test()) {
+                    var thread_id = streams[k].match(/(?<=\/comments\/).+?(?=\/)/g)[0];
+                    var comment_id = streams[k].match(/[^\/]+?(?=\/\))/g)[0];
+                    obj.links[name] = getLinksFromComment(cmts, comment_id);
+                } else {
+                    var links = streams[k].match(/(?<=\()http.+?(?=\))/g); // Matches anything in parentheses
+                    obj.links[name] = links;
+                }
             }
         }
     }

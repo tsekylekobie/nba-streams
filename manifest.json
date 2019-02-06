@@ -2,7 +2,7 @@
 	"name": "NBA Streams",
     "manifest_version": 2,
 	"description": "Find NBA streams quickly. Streamers can be found on r/nbastreams.",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"permissions": [
     	"activeTab",
         "http://stats.nba.com"
