@@ -2,7 +2,7 @@
 	"name": "NBA Streams",
     "manifest_version": 2,
 	"description": "Find NBA streams quickly. Streamers can be found on r/nbastreams.",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"permissions": [
     	"activeTab",
         "http://stats.nba.com"
@@ -12,7 +12,7 @@
       "default_icon": "basketball.png"
     },
     "background": {
-    	"scripts": ["js/reddit.min.js", "js/jquery-3.3.1.min.js", "js/bundle.js", "js/boxscore.js"],
+    	"scripts": ["js/reddit.min.js", "js/jquery-3.3.1.min.js", "js/main.js", "js/boxscore.js", "js/games.js", "js/table.js"],
     	"persistent": false
     }
 }
