@@ -58,8 +58,8 @@ function getURL(obj) {
             var streams = cmts[j].data.body.match(/(?<=\/u\/).*/g);
             for (var k = 0; k < streams.length; k++) {
                 var name = streams[k].match(/([^\| ]+)/g)[0];
-                // Check if format is /u/username
-                if (/(?<=\/u\/).*/g.test()) {
+                // Check if format is /u/username or /r/nbastreams
+                if (/(?<=\/u\/).*/g.test(streams[k]) || /(?<=\/r\/).*/g.test(streams[k])) {
                     var thread_id = streams[k].match(/(?<=\/comments\/).+?(?=\/)/g)[0];
                     var comment_id = streams[k].match(/[^\/]+?(?=\/\))/g)[0];
                     obj.links[name] = getLinksFromComment(cmts, comment_id);
